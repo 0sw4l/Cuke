@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+{% load widget_tweaks %}
+{% block contenido %}
+    <div class="form-panel">
+         <form class="form-horizontal style-form" method="post">{% csrf_token %}
+            <div class="form-group">
+            {% for field in form %}
+                <center style="color:red;">
+                    <strong>
+                        {{ field.errors }}
+                    </strong>
+                </center>
+                <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">
+                    <strong> {{ field.label }}</strong>
+                </label>
+                <div class="col-sm-10">
+                    {% render_field field class="form-control" id="inputSuccess" %}
+                    <br>
+                </div>
+            {% endfor %}
+                <div align="center">
+                    <button  type="submit" class="btn btn-success">
+                        {{ button }}
+                    </button>
+                    {% if home %}
+                        <a href="{% url 'home' %}" class="btn btn-primary">
+                            <i class="fa fa-home"></i>
+                            regresar al inicio
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+          </form>
+    </div>
+{% endblock %}

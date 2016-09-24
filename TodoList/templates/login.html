@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+
+    <title>{{ titulo }}</title>
+	<link href="https://www.djangoproject.com/s/img/favicon.6dbf28c0650e.ico" rel="icon" type="image/x-icon" />
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/font-awesome.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+	  	<div class="container">
+		      <form class="form-login"  method="post">{% csrf_token %}
+		        <h2 class="form-login-heading">Conectate Ahora o Muere</h2>
+		        <div class="login-wrap">
+                {% if panel %}
+                  <div class="alert alert-danger" align="center">
+                    <strong>Error !</strong> {{ msj }}
+                  </div>
+                {% endif %}
+		            <input type="text" name="username" class="form-control" placeholder="usuario">
+		            <br>
+		            <input type="password" name="password" class="form-control" placeholder="contraseña">
+		            <br>
+		            <div align="center">
+		            	<button type="submit" class="btn btn-success">
+		            	<i class="fa fa-lock"></i> Entrar</button>
+		            </div>
+                <h4 align="center">
+                  Create una Cuenta <br>
+                  <a href="{% url 'registrar' %}">
+                      Aqui!
+                  </a>
+                </h4>
+		        </div>
+		      </form>	  	
+	  	</div>
+    <script src="{{ STATIC_URL }}js/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.backstretch.min.js"></script>
+    <script>
+         $.backstretch([
+      "http://fc00.deviantart.net/fs71/f/2012/213/2/7/django__white_and_green__by_aruseni-d59g56q.png"
+    , "http://www.recipesforlinux.com/wp-content/uploads/2014/04/Django.jpg"
+    , "https://www.djangoproject.com/s/img/logos/django-logo-negative.png"
+    , "https://www.djangoproject.com/s/img/logos/django-logo-negative.png"
+    ,"http://www.aydev.net46.net/assets/img//dotnet.jpg"
+    
+  		], {duration: 100, fade :1500});
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+
+    <title>{{ titulo }} - {{ user }}</title>
+    <link href="https://www.djangoproject.com/s/img/favicon.6dbf28c0650e.ico" rel="icon" type="image/x-icon" />
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/font-awesome.css" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
+
+  </head>
+<body>
+  <section id="container">
+   <header class="header black-bg">
+     <a class="logo">
+       Cuke - Todo List By : 0sw4l
+     </a>
+   </header>
+   <section id="container">
+    <section class="wrapper">
+     <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+	{% block contenido %}
+        {% endblock %}
+      </div>
+     </div>
+    </section>
+   </section>
+   <footer class="site-footer">
+    <div class="text-center">
+      0sw4l 2015 - CodigoFacilito
+    </div>
+   </footer>
+  </section>
+</body>
+</html>

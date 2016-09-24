@@ -1,0 +1,127 @@
+{% extends 'main.html' %}
+{% block contenido %}
+                    <section class="task-panel">
+                        <div class="panel-heading">
+                        {% if user.cliente and count == 0 %}
+                        <div class="row">
+                              <div class="col-md-12">
+                                <h1 align="center">
+                                  Hola {{ user.cliente.tratamiento }} <strong>{{ user.first_name }}</strong>, no tienes ninguna nota, deseas crear una?
+                                </h1>
+                              </div>
+                             <div class="col-md-12" align="center">
+                                  <a class="btn btn-success btn-lg" href="{% url 'crear' %}">
+                                     Si, Deseo Crear una Nota
+                                 </a>
+                                <br><br>
+                                 <a class="btn btn-danger btn-lg" href="{% url 'log_out' %}">
+                                    No, Me Largo !
+                                 </a>
+                             </div>
+                         </div>
+                        {% else %}
+                             <i class="fa fa-tasks"></i>
+                              {% if user.is_staff %}
+                                   Todas las Tareas Creadas
+                              {% else %}
+                                  Bienvenido a <strong>Cuke</strong>, Tu lista de tareas
+                              {% endif %}
+
+                            <h1 align="center">
+                               {% if user.cliente %}
+                                   Hola {{ user.cliente.tratamiento }} <strong>{{ user.first_name }}</strong>
+                               {% else %}
+                                   Hey <strong>{{ user.first_name }}</strong>, Notas creadas <strong>{{ count }}</strong>
+                                   <div class="row">
+                                       <div class="col-md-12 center">
+                                           <a href="{% url 'nueva_categoria' %}" class="btn btn-success">
+                                               Crear Categoria
+                                           </a>
+                                           <a href="{% url 'admin:index' %}" class="btn btn-warning">
+                                              Panel de Administracion
+                                           </a>
+                                           <a href="{% url 'log_out' %}" class="btn btn-danger">
+                                              Cerrar Sesion
+                                           </a>
+                                       </div>
+                                   </div>
+                               {% endif %}
+                            </h1>
+                            {% if user.cliente %}
+                                <div align="center">
+                                        <a class="btn btn-success" href="{% url 'crear' %}">
+                                            Agregar nueva tarea +
+                                        </a>
+                                         <a class="btn btn-danger" href="{% url 'log_out' %}">
+                                           Cerrar Sesíon
+                                        </a>
+                                </div>
+                            {% endif %}
+	                 	</div>
+                          <div class="panel-body">
+                              <div class="task-content">
+                                  <ul id="sortable" class="task-list">
+                                   {% for i in notas %}
+                                        <li class="list-{% if i.completada %}success{% else %}{% if i.prioridad == 'Urgente' %}danger{% elif i.prioridad == 'Normal' %}primary{% elif i.prioridad == 'Relajao' %}info{% elif i.prioridad == 'Pendiente' %}warning{% endif %}{% endif %}">
+                                          <div class="task-title">
+                                              <span class="task-title-sp">
+                                                {% if i.categoria.id == 1 %}
+                                                    <i class="fa fa-home"></i>
+                                                {% elif i.categoria.id == 2 %}
+                                                    <i class="fa fa-file-code-o"></i>
+                                                {% elif i.categoria.id == 3 %}
+                                                    <i class="fa fa-graduation-cap"></i>
+                                                {% elif i.categoria.id == 4 %}
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                {% elif i.categoria.id == 5 %}
+                                                    <i class="fa fa-music"></i> 
+                                                {% elif i.categoria.id == 6 %}
+                                                    <i class="fa fa-cogs"></i> 
+                                                {% elif i.categoria.id >= 7 %}
+                                                    <i class="fa fa-thumb-tack"></i> 
+                                                {% endif %}
+                                                  {% if i.completada %}
+                                                    <s>
+                                                      {{ i.nota }}
+                                                    </s>
+                                                  {% else %}
+                                                        {{ i.nota }}
+                                                  {% endif %}
+                                              </span>
+                                              <span class="badge bg-{% if i.completada %}success{% else %}{% if i.prioridad == 'Urgente' %}important{% elif i.prioridad == 'Normal' %}info{% elif i.prioridad == 'Relajao' %}primary{% elif i.prioridad == 'Pendiente' %}warning{% endif %}{% endif %}">
+                                                    {% if i.completada %}
+                                                        Terminada
+                                                     {% else %}
+                                                        {% if i.prioridad == 'Urgente' %}
+                                                            Urgente
+                                                        {% elif i.prioridad == 'Normal' %}
+                                                            Normal
+                                                        {% elif i.prioridad == 'Relajao' %}
+                                                            Relajao Como la carne
+                                                        {% elif i.prioridad == 'Pendiente' %}
+                                                            Pendiente!
+                                                        {% endif %}
+                                                    {% endif %}
+                                              </span>
+                                                <div class="pull-right">
+                                                  {% if user.cliente %}
+                                                    {% if i.completada %}
+                                                      <a class="btn btn-success btn-xs fa fa-smile-o"></a>
+                                                    {% else %}
+                                                      <a href="{% url 'cumplir' i.id %}" class="btn btn-success btn-xs fa fa-check"></a>
+                                                    {% endif %}
+                                                    <a href="{% url 'editar' i.id %}" class="btn btn-primary btn-xs fa fa-edit"></a>
+                                                    <a href="{% url 'borrar' i.id  %}" class="btn btn-danger btn-xs fa fa-trash-o"></a>
+                                                  {% else %}
+                                                       <strong>{{ i.usuario }}</strong>
+                                                  {% endif %}
+                                                </div>
+                                          </div>
+                                      </li>
+                                    {% endfor %}
+                                  </ul>
+                              </div>
+                        {% endif %}
+                        </div>
+                    </section>
+{% endblock %}
